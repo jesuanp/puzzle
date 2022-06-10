@@ -38,10 +38,6 @@ body {
     -webkit-backface-visibility: hidden;
 }
 
-/* .rotacion {
-    transform: rotatey(180deg);
-} */
-
 @keyframes rotacion {
     0% {transform: rotatey(0deg);}
     50% {transform: rotatey(180deg);}
