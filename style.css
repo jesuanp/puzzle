@@ -9,19 +9,47 @@ body {
     grid-template-columns: repeat(4, 1fr);
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     margin: 3rem;
     height: 100%;
 
 }
 
 .letter {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
 }
 
-img {
+.images {
     width: 8rem;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.interrogacion {
+    position: absolute;
+    width: 8.5rem;
+    border: 2px solid black;
+    border-radius: 5px;
+    z-index: 1;
+    -webkit-backface-visibility: hidden;
+}
+
+/* .rotacion {
+    transform: rotatey(180deg);
+} */
+
+@keyframes rotacion {
+    0% {transform: rotatey(0deg);}
+    50% {transform: rotatey(180deg);}
+    100% {transform: rotatey(180deg);}
+}
+
+@keyframes rotacionReversa {
+    0% {transform: rotatey(-180deg);}
+    50% {transform: rotatey(0deg);}
+    100% {transform: rotatey(0deg);}
 }

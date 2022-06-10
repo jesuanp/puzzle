@@ -1,4 +1,5 @@
 let container = document.getElementById('container');
+let images = document.getElementsByClassName('images');
 
 const selectRandom = () => {
     let arrayImages = [
@@ -22,12 +23,12 @@ const selectRandom = () => {
 
     let lengthArray = arrayImages.length;
 
-    let indicesRecorridos = [];
-
     let max = arrayImages.length - 1;
     let min = 0;
 
     for(let i = 0; i < lengthArray; i++){
+
+        let id = i+1;
 
         let numberRandom = Math.ceil(Math.random() * (max - min) + min);
 
@@ -35,21 +36,39 @@ const selectRandom = () => {
         image = imageArray[0];
 
         let divImage = document.createElement('div');
-        let img = document.createElement('img')
+        let img = document.createElement('img');
+        let imgInterrogacion = document.createElement('img');
+
+        let nameImage = image.slice(15, image.length-4);
+
+        imgInterrogacion.className = 'images interrogacion ' + id;
+        imgInterrogacion.src = './images/interrogacion.gif';
+        imgInterrogacion.alt = 'signo de interrogación';
 
         img.src = image;
-        img.className += ' letter';
-        img.id = image.slice(15, image.length-4);
+        img.className += 'images ' + id;
+        img.alt = nameImage;
 
+        divImage.className = 'letter';
+        divImage.append(imgInterrogacion);
         divImage.append(img);
 
         container.append(divImage);
 
         max--;
-
-        console.log(numberRandom, arrayImages.length, image);
     }
 
 }
 
 selectRandom();
+
+for(let i = 0; i < images.length; i++){
+    
+    images[i].addEventListener('click', () => {
+        images[i].style.animationName = 'rotacion';
+        images[i+1].style.animationName = 'rotacionReversa';
+        console.log(images[i+1], images[i])
+    })
+
+}
+
