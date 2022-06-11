@@ -24,11 +24,8 @@ for(let i = 0; i < btns.length; i++){
 
             reload = arrayImagesNormal;
 
-            if(screen.width > 700){
-
-                container.style.gridTemplateColumns = 'repeat(6, 1fr)';
-            }
-
+            if(screen.width > 700) container.style.gridTemplateColumns = 'repeat(6, 1fr)';
+            else container.style.gridTemplateColumns = 'repeat(4, 1fr)';
 
             setTimeout(() => {
                 body.append(container);
@@ -39,10 +36,8 @@ for(let i = 0; i < btns.length; i++){
 
             reload = arrayImagesNormal;
 
-            if(screen.width > 700){
-
-                container.style.gridTemplateColumns = 'repeat(6, 1fr)';
-            }
+            if(screen.width > 700) container.style.gridTemplateColumns = 'repeat(6, 1fr)';
+            else container.style.gridTemplateColumns = 'repeat(4, 1fr)';
             
             setTimeout(() => {
                 body.append(container);
