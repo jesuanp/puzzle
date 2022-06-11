@@ -20,7 +20,7 @@ for(let i = 0; i < btns.length; i++){
                 SeleccionarCartasRandom(arrayImagesFacil, 8);
             }, 100);
         }
-        else if(dificultad === 'Normal') {
+        else if(dificultad === 'Intermedio') {
 
             reload = arrayImagesNormal;
 
