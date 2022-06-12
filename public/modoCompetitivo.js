@@ -170,7 +170,7 @@ const crearVentanaEmergente = () => {
 
         btnEmpezar.addEventListener('click', () => {
 
-            fetch('http://localhost:3001/empezar?sala=' + codigo, {
+            fetch('https://puzzle-jesuanp.vercel.app/empezar?sala=' + codigo, {
                 method: 'POST',
                 body: JSON.stringify({reload, socketId: socket.id}),
                 headers:{
@@ -211,7 +211,7 @@ const ponerCodigo = () => {
 
 function playerWin(sala){
 
-    fetch('http://localhost:3001/ganador?sala=' + sala, {
+    fetch('http://puzzle-jesuanp.vercel.app/ganador?sala=' + sala, {
         method: 'post',
     });
 }
