@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Juego de memoria</title>
+        
+        <link rel="shortcut icon" href="https://empresas.blogthinkbig.com/wp-content/uploads/2019/11/Imagen3-245003649.jpg?w=800" type="image/x-icon">
+
+        <link rel="stylesheet" href="style.css">
+
+        <!-- importando el tipo de letra -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    </head>
+    <body>
+        
+        <div class="inicio" id="inicio">
+            
+            <h1>juego de memoria</h1>
+            
+            <h2>Dificultad</h2>
+            
+            <div class="buttons">
+                
+                <button id="nivel-facil" class="btn">Facíl</button>
+                <button id="nivel-intermedio" class="btn">Intermedio</button>
+                <button id="competitivo" class="btn">1 vs 1</button>
+                
+            </div>
+            
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="modoCompetitivo.js"></script>
+        <script src="tableros.js"></script>
+        <script src="selectDificulty.js"></script>
+    </body>
+</html>

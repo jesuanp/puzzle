@@ -1,49 +1,24 @@
-let body = document.body;
-let btns = document.getElementsByClassName('btn');
+require('dotenv').config();
+const server = require('./app.js');
+const {connect, socket} = require('./socket-io.js');
 
-for(let i = 0; i < btns.length; i++){
-    
-    let dificultad = btns[i].textContent;
-    
-    btns[i].addEventListener('click', () => {
-        
-        inicio.remove();
-        
-        if(dificultad === 'Facíl'){
+connect(server);
 
-            reload = arrayImagesFacil;
+socket.io.on('connection', socket => {
 
-            container.style.gridTemplateColumns = 'repeat(4, 1fr)';
+    socket.on('unir-sala', data => {
 
-            setTimeout(() => {
-                body.append(container);
-                SeleccionarCartasRandom(arrayImagesFacil, 8);
-            }, 100);
-        }
-        else if(dificultad === 'Intermedio') {
-
-            reload = arrayImagesNormal;
-
-            if(screen.width > 700) container.style.gridTemplateColumns = 'repeat(6, 1fr)';
-            else container.style.gridTemplateColumns = 'repeat(4, 1fr)';
-
-            setTimeout(() => {
-                body.append(container);
-                SeleccionarCartasRandom(arrayImagesNormal, 12);
-            }, 100)
-        }
-        else if(dificultad === 'Difícil') {
-
-            reload = arrayImagesNormal;
-
-            if(screen.width > 700) container.style.gridTemplateColumns = 'repeat(6, 1fr)';
-            else container.style.gridTemplateColumns = 'repeat(4, 1fr)';
-            
-            setTimeout(() => {
-                body.append(container);
-                SeleccionarCartasRandom(arrayImagesNormal, 12);
-            }, 100)
-        }
-
+        socket.join(data.codigo.toString());
     });
-}
+
+    socket.on('salir-sala', data => {
+
+        socket.leave(data.codigo.toString());
+    })
+});
+
+let port = process.env.PORT;
+
+server.listen(port, () => {
+    console.log('Server corriendo en el puerto ' + port);
+});
