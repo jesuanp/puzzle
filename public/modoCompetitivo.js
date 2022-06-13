@@ -1,4 +1,4 @@
-var socket = io.connect("http://puzzle-jesuanp.vercel.app/", { forceNew: true });
+var socket = io.connect("https://puzzle-sigma.vercel.app/", { forceNew: true });
 
 let body = document.body;
 
