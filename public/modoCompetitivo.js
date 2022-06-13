@@ -209,7 +209,7 @@ const ponerCodigo = () => {
 
 function playerWin(sala){
 
-    fetch(`${urlServer}/empezar?sala=${sala}`, {
+    fetch(`${urlServer}/ganador?sala=${sala}`, {
         method: 'POST',
     });
 }
