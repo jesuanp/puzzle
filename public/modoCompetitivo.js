@@ -1,7 +1,4 @@
-// var socket = io.connect("https://puzzle-sigma.vercel.app/", { forceNew: true });
-var socket = io.connect("https://puzzle-sigma.vercel.app/", {
-  withCredentials: true
-});
+var socket = io.connect("https://puzzle-jesuanp.herokuapp.com/", { forceNew: true });
 
 let body = document.body;
 
