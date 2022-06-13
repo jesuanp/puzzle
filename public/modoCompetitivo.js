@@ -170,7 +170,7 @@ const crearVentanaEmergente = () => {
 
         btnEmpezar.addEventListener('click', () => {
 
-            fetch('https://puzzle-jesuanp.vercel.app/empezar?sala=' + codigo, {
+            fetch('https://puzzle-jesuanp.herokuapp.com/empezar?sala=' + codigo, {
                 method: 'POST',
                 body: JSON.stringify({reload, socketId: socket.id}),
                 headers:{
@@ -211,7 +211,7 @@ const ponerCodigo = () => {
 
 function playerWin(sala){
 
-    fetch('https://puzzle-jesuanp.vercel.app/ganador?sala=' + sala, {
+    fetch('https://puzzle-jesuanp.herokuapp.com/ganador?sala=' + sala, {
         method: 'post',
     });
 }
