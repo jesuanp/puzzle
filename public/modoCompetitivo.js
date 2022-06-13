@@ -1,5 +1,5 @@
-// var socket = io.connect("https://puzzle-jesuanp.herokuapp.com/", { forceNew: true });
-var socket = io.connect("http://localhost:3001/", { forceNew: true });
+var socket = io.connect("https://puzzle-jesuanp.herokuapp.com/", { forceNew: true });
+// var socket = io.connect("http://localhost:3001/", { forceNew: true });
 
 let body = document.body;
 
@@ -167,21 +167,21 @@ const crearVentanaEmergente = () => {
 
         btnEmpezar.addEventListener('click', () => {
 
-            // fetch('https://puzzle-jesuanp.herokuapp.com/empezar?sala=' + codigo, {
-            //     method: 'POST',
-            //     body: JSON.stringify({reload, socketId: socket.id}),
-            //     headers:{
-            //         'Content-Type': 'application/json'
-            //     }
-            // });
-
-            fetch('http://localhost:3001/empezar?sala=' + codigo, {
+            fetch('https://puzzle-jesuanp.herokuapp.com/empezar?sala=' + codigo, {
                 method: 'POST',
                 body: JSON.stringify({reload, socketId: socket.id}),
                 headers:{
                     'Content-Type': 'application/json'
                 }
             });
+
+            // fetch('http://localhost:3001/empezar?sala=' + codigo, {
+            //     method: 'POST',
+            //     body: JSON.stringify({reload, socketId: socket.id}),
+            //     headers:{
+            //         'Content-Type': 'application/json'
+            //     }
+            // });
         });
     });
 }
@@ -216,12 +216,12 @@ const ponerCodigo = () => {
 
 function playerWin(sala){
 
-    // fetch('https://puzzle-jesuanp.herokuapp.com/ganador?sala=' + sala, {
-    //     method: 'POST',
-    // });
-
-    fetch('http://localhost:3001/ganador?sala=' + sala, {
+    fetch('https://puzzle-jesuanp.herokuapp.com/ganador?sala=' + sala, {
         method: 'POST',
     });
+
+    // fetch('http://localhost:3001/ganador?sala=' + sala, {
+    //     method: 'POST',
+    // });
 }
 
