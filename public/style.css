@@ -19,11 +19,16 @@ h1 {
     flex-direction: column;
     background-color: rgb(36, 36, 36);
     border-radius: 0.5rem;
-    padding: 2rem 2rem;
+    padding: 2rem 2rem 3.5rem 2rem;
     color: white;
-    height: 18rem;
+    height: 6rem;
+    /* height: 18rem; */
     margin-top: 5rem;
     box-shadow: 15px 15px 15px black;
+}
+
+#titulo-inicio {
+    width: 18rem;
 }
 
 .buttons {

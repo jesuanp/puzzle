@@ -7,15 +7,20 @@ let body = document.body;
 
 socket.on('ganador', data => {
 
-    console.log('ganador');
     
     let ventanaEmergente = document.createElement('div');
     ventanaEmergente.className = 'ventana-emergente';
-
+    
     let cuerpoVentana = document.createElement('div');
     cuerpoVentana.className = 'cuerpo-ventana';
+    
+    if(data.socketId === socket.id){
+        cuerpoVentana.innerText = `Ganaste la partida con ${data.movimientos} movimientos`;
+    }
+    else {
+        cuerpoVentana.innerText = `${data.nombreGanador} ganó la partida con ${data.movimientos}`;
+    }
 
-    cuerpoVentana.innerText = 'Ya hay un ganador';
     cuerpoVentana.style.color = '#fff';
 
     ventanaEmergente.append(cuerpoVentana)
@@ -207,9 +212,9 @@ const ponerCodigo = () => {
     });
 }
 
-function playerWin(sala){
+function playerWin(sala, nombreUsuario, socketId, movimientos){
 
-    fetch(`${urlServer}/ganador?sala=${sala}`, {
+    fetch(`${urlServer}/ganador?sala=${sala}&nombreGanador=${nombreUsuario}&socketId=${socketId}&movimientos=${movimientos}`, {
         method: 'POST',
     });
 }

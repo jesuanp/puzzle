@@ -1,47 +1,51 @@
-let btns = document.getElementsByClassName('btn');
+const seleccionarDificultad = () => {
 
-for(let i = 0; i < btns.length; i++){
-    
-    let dificultad = btns[i].textContent;
-    
-    btns[i].addEventListener('click', () => {
+    let btns = document.getElementsByClassName('btn');
+
+    for(let i = 0; i < btns.length; i++){
         
-        if(dificultad === 'Facíl'){
+        let dificultad = btns[i].textContent;
 
-            inicio.remove();
+        btns[i].addEventListener('click', () => {
 
-            reload = {array: arrayImagesFacil, numCartas: 8};
+            
+            if(dificultad === 'Facíl'){
 
-            container.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                inicio.remove();
 
-            setTimeout(() => {
-                body.append(container);
-                SeleccionarCartasRandom(arrayImagesFacil, 8);
-            }, 100);
-        }
-        else if(dificultad === 'Intermedio') {
+                reload = {array: arrayImagesFacil, numCartas: 8};
 
-            inicio.remove();
+                container.style.gridTemplateColumns = 'repeat(4, 1fr)';
 
-            reload = {array: arrayImagesNormal, numCartas: 12};
+                setTimeout(() => {
+                    body.append(container);
+                    SeleccionarCartasRandom(arrayImagesFacil, 8);
+                }, 100);
+            }
+            else if(dificultad === 'Intermedio') {
 
-            if(screen.width > 700) container.style.gridTemplateColumns = 'repeat(6, 1fr)';
-            else container.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                inicio.remove();
 
-            setTimeout(() => {
-                body.append(container);
-                SeleccionarCartasRandom(arrayImagesNormal, 12);
-            }, 100)
-        }
-        else if(dificultad === '1 vs 1') {
+                reload = {array: arrayImagesNormal, numCartas: 12};
 
-            crearVentanaEmergente();
+                if(screen.width > 700) container.style.gridTemplateColumns = 'repeat(6, 1fr)';
+                else container.style.gridTemplateColumns = 'repeat(4, 1fr)';
 
-            // setTimeout(() => {
+                setTimeout(() => {
+                    body.append(container);
+                    SeleccionarCartasRandom(arrayImagesNormal, 12);
+                }, 100)
+            }
+            else if(dificultad === '1 vs 1') {
 
-            //     alert('Modo de juego 1 vs 1 está en producción');
-            // }, 1000)
-        }
+                crearVentanaEmergente();
 
-    });
+                // setTimeout(() => {
+
+                //     alert('Modo de juego 1 vs 1 está en producción');
+                // }, 1000)
+            }
+
+        });
+    }
 }

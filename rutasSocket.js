@@ -5,11 +5,9 @@ const router = Router();
 
 router.post('/ganador', (req, res) => {
 
-    const {sala} = req.query;
+    const {sala, nombreGanador, socketId, movimientos} = req.query;
 
-    console.log('ruta ganador. numero de la sala: ' + sala);
-
-    socket.io.to(sala).emit('ganador');
+    socket.io.to(sala).emit('ganador', {nombreGanador, socketId, movimientos});
 
     res.send({status: true});
 });

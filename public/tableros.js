@@ -114,7 +114,7 @@ const SeleccionarCartasRandom = (array, numCartas) => {
     
             if(cartasVolteadas.length < 2){
 
-                // playerWin(codigo);
+                // playerWin(codigo, nombreUsuario, socket.id, movimientos);
 
                 movimientos++;
     
@@ -157,12 +157,7 @@ const SeleccionarCartasRandom = (array, numCartas) => {
     
             if(cartasEncontradas === numCartas){
                 
-                playerWin(codigo);
-
-                setTimeout(() => {
-
-                    alert('Ganaste con ' + movimientos + ' movimientos');
-                }, 1000);
+                playerWin(codigo, nombreUsuario, socket.id, movimientos);
             };
         });
     };
