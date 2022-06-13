@@ -1,9 +1,6 @@
 // var socket = io.connect("https://puzzle-sigma.vercel.app/", { forceNew: true });
-io.connect("https://puzzle-sigma.vercel.app/", {
-  withCredentials: true,
-  extraHeaders: {
-    "my-custom-header": "abcd"
-  }
+var socket = io.connect("https://puzzle-sigma.vercel.app/", {
+  withCredentials: true
 });
 
 let body = document.body;
