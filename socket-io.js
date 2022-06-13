@@ -5,7 +5,7 @@ var socket = {};
 const connect = (server) => {
     socket.io = socketIO(server, {
         cors: {
-            origin: "*",
+            origin: "https://puzzle-jesuanp.herokuapp.com/",
             methods: ["GET", "POST"]
         }
     });

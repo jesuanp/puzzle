@@ -1,4 +1,10 @@
-var socket = io.connect("https://puzzle-sigma.vercel.app/", { forceNew: true });
+// var socket = io.connect("https://puzzle-sigma.vercel.app/", { forceNew: true });
+io.connect("https://puzzle-sigma.vercel.app/", {
+  withCredentials: true,
+  extraHeaders: {
+    "my-custom-header": "abcd"
+  }
+});
 
 let body = document.body;
 
