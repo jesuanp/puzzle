@@ -1,8 +1,9 @@
 var socket = io.connect("https://puzzle-jesuanp.herokuapp.com/", { forceNew: true });
+// var socket = io.connect("http://localhost:3001/", { forceNew: true });
 
 let body = document.body;
 
-socket.on('ganador', data => { 
+socket.on('ganador', data => {
     
     let ventanaEmergente = document.createElement('div');
     ventanaEmergente.className = 'ventana-emergente';
@@ -20,20 +21,16 @@ socket.on('ganador', data => {
 
 socket.on('empezar', data => {
 
-    console.log('empezar');
-
-    if(data.socketId !== socket.id){
-        console.log('generar cartas');
-                
-        if(data.reload.numCartas === 8){
-            container.style.gridTemplateColumns = 'repeat(4, 1fr)';
-        }
-        if(data.reload.numCartas === 12){
-            container.style.gridTemplateColumns = 'repeat(6, 1fr)';
-        }
-
-        SeleccionarCartasRandom(data.reload.array, data.reload.numCartas);
+    body.append(container);
+            
+    if(data.reload.numCartas === 12 && screen.width > 700){
+        container.style.gridTemplateColumns = 'repeat(6, 1fr)';
     }
+    else{
+        container.style.gridTemplateColumns = 'repeat(4, 1fr)';
+    }
+    
+    SeleccionarCartasRandom(data.reload.array, data.reload.numCartas);
     ponerTablero();
 
 });
@@ -137,9 +134,7 @@ const crearVentanaEmergente = () => {
             socket.emit('unir-sala', {id: socket.id, codigo});
     
             setTimeout(() => {
-                body.append(container);
                 body.append(sala);
-                SeleccionarCartasRandom(arrayImagesFacil, 8);
             }, 100);
     
         });
@@ -177,6 +172,14 @@ const crearVentanaEmergente = () => {
                     'Content-Type': 'application/json'
                 }
             });
+
+            // fetch('http://localhost:3001/empezar?sala=' + codigo, {
+            //     method: 'POST',
+            //     body: JSON.stringify({reload, socketId: socket.id}),
+            //     headers:{
+            //         'Content-Type': 'application/json'
+            //     }
+            // });
         });
     });
 }
@@ -214,5 +217,9 @@ function playerWin(sala){
     fetch('https://puzzle-jesuanp.herokuapp.com/ganador?sala=' + sala, {
         method: 'post',
     });
+
+    // fetch('http://localhost:3001/ganador?sala=' + sala, {
+    //     method: 'post',
+    // });
 }
 
