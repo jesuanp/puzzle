@@ -114,7 +114,7 @@ const SeleccionarCartasRandom = (array, numCartas) => {
     
             if(cartasVolteadas.length < 2){
 
-                playerWin(codigo);
+                // playerWin(codigo);
 
                 movimientos++;
     
@@ -157,7 +157,7 @@ const SeleccionarCartasRandom = (array, numCartas) => {
     
             if(cartasEncontradas === numCartas){
                 
-                // playerWin(codigo);
+                playerWin(codigo);
 
                 setTimeout(() => {
 
