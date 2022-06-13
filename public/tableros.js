@@ -157,10 +157,10 @@ const SeleccionarCartasRandom = (array, numCartas) => {
     
             if(cartasEncontradas === numCartas){
                 
+                playerWin(codigo);
+
                 setTimeout(() => {
 
-                    playerWin(codigo);
-                    
                     alert('Ganaste con ' + movimientos + ' movimientos');
                 }, 1000);
             };

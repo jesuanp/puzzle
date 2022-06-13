@@ -4,6 +4,8 @@ var socket = io.connect("https://puzzle-jesuanp.herokuapp.com/", { forceNew: tru
 let body = document.body;
 
 socket.on('ganador', data => {
+
+    console.log('ganador');
     
     let ventanaEmergente = document.createElement('div');
     ventanaEmergente.className = 'ventana-emergente';
