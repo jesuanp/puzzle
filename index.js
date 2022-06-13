@@ -6,6 +6,8 @@ connect(server);
 
 socket.io.on('connection', socket => {
 
+    console.log('Nueva canección');
+
     socket.on('unir-sala', data => {
 
         socket.join(data.codigo.toString());
