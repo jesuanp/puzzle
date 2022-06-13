@@ -1,42 +1,42 @@
-var socket = io.connect("https://puzzle-sigma.vercel.app/", { forceNew: true });
+// var socket = io.connect("https://puzzle-sigma.vercel.app/", { forceNew: true });
 
 let body = document.body;
 
-socket.on('ganador', data => { 
+// socket.on('ganador', data => { 
     
-    let ventanaEmergente = document.createElement('div');
-    ventanaEmergente.className = 'ventana-emergente';
+//     let ventanaEmergente = document.createElement('div');
+//     ventanaEmergente.className = 'ventana-emergente';
 
-    let cuerpoVentana = document.createElement('div');
-    cuerpoVentana.className = 'cuerpo-ventana';
+//     let cuerpoVentana = document.createElement('div');
+//     cuerpoVentana.className = 'cuerpo-ventana';
 
-    cuerpoVentana.innerText = 'Ya hay un ganador';
-    cuerpoVentana.style.color = '#fff';
+//     cuerpoVentana.innerText = 'Ya hay un ganador';
+//     cuerpoVentana.style.color = '#fff';
 
-    ventanaEmergente.append(cuerpoVentana)
+//     ventanaEmergente.append(cuerpoVentana)
 
-    body.append(ventanaEmergente);
-});
+//     body.append(ventanaEmergente);
+// });
 
-socket.on('empezar', data => {
+// socket.on('empezar', data => {
 
-    console.log('empezar');
+//     console.log('empezar');
 
-    if(data.socketId !== socket.id){
-        console.log('generar cartas');
+//     if(data.socketId !== socket.id){
+//         console.log('generar cartas');
                 
-        if(data.reload.numCartas === 8){
-            container.style.gridTemplateColumns = 'repeat(4, 1fr)';
-        }
-        if(data.reload.numCartas === 12){
-            container.style.gridTemplateColumns = 'repeat(6, 1fr)';
-        }
+//         if(data.reload.numCartas === 8){
+//             container.style.gridTemplateColumns = 'repeat(4, 1fr)';
+//         }
+//         if(data.reload.numCartas === 12){
+//             container.style.gridTemplateColumns = 'repeat(6, 1fr)';
+//         }
 
-        SeleccionarCartasRandom(data.reload.array, data.reload.numCartas);
-    }
-    ponerTablero();
+//         SeleccionarCartasRandom(data.reload.array, data.reload.numCartas);
+//     }
+//     ponerTablero();
 
-});
+// });
 
 
 let codigo = Math.ceil(Math.random() * (9999 - 1000) + 1000);
@@ -211,7 +211,7 @@ const ponerCodigo = () => {
 
 function playerWin(sala){
 
-    fetch('http://puzzle-jesuanp.vercel.app/ganador?sala=' + sala, {
+    fetch('https://puzzle-jesuanp.vercel.app/ganador?sala=' + sala, {
         method: 'post',
     });
 }
