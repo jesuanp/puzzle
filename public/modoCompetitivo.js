@@ -208,6 +208,8 @@ const ponerCodigo = () => {
         sala.innerText = 'Sala: ' + inputVentana.value;
         socket.emit('unir-sala', {id: socket.id, codigo: inputVentana.value});
 
+        codigo = inputVentana.value;
+
         cuerpoVentana.innerText = 'Esperando al otro jugador...';
         cuerpoVentana.style.color = '#fff'
 
