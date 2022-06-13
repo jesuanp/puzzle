@@ -32,9 +32,8 @@ socket.on('empezar', data => {
         container.style.gridTemplateColumns = 'repeat(4, 1fr)';
     }
     
-    SeleccionarCartasRandom(data.reload.array, data.reload.numCartas);
     ponerTablero();
-
+    SeleccionarCartasRandom(data.reload.array, data.reload.numCartas);
 });
 
 
