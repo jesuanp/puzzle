@@ -1,68 +1,81 @@
 let images = document.getElementsByClassName('images');
 let letter = document.getElementsByClassName('letter');
 let inicio = document.getElementById('inicio');
+let containerNav;
 
-// creo el div en donde van las cartas
-let container = document.createElement('div');
-container.id = 'container';
+const crearNav = () => {
 
-// creo el boton para volver al menu
-let imgBack = document.createElement('img');
-imgBack.src = './images/house.svg';
-imgBack.classList = 'svg';
-imgBack.style.transform = 'scale(2.5)';
+    // creo el boton para volver al menu
+    let imgBack = document.createElement('img');
+    imgBack.src = './images/house.svg';
+    imgBack.classList = 'svg';
+    imgBack.style.transform = 'scale(2.5)';
 
-let back = document.createElement('div');
-back.className = 'back-load';
-back.append(imgBack);
+    let back = document.createElement('div');
+    back.className = 'back-load';
+    back.append(imgBack);
 
-// creo el boton para comenzar el juego desde cero
-let imgLoad = document.createElement('img');
-imgLoad.src = './images/arrow-load.svg';
-imgLoad.classList = 'svg load';
-imgLoad.style.transform = 'scale(2.5)';
+    // creo el boton para comenzar el juego desde cero
+    let imgLoad = document.createElement('img');
+    imgLoad.src = './images/arrow-load.svg';
+    imgLoad.classList = 'svg load';
+    imgLoad.style.transform = 'scale(2.5)';
 
-let load = document.createElement('div');
-load.className = 'back-load';
-load.append(imgLoad);
+    let load = document.createElement('div');
+    load.className = 'back-load';
+    load.id = 'load';
+    load.append(imgLoad);
 
-// creo el contener de los botones de back y load
-let containerBtn = document.createElement('div');
-containerBtn.className = 'containerBtn';
-containerBtn.append(back);
-containerBtn.append(load);
+    // creo el contener de los botones de back y load
+    containerNav = document.createElement('div');
+    containerNav.id = 'container-nav';
+    containerNav.append(back);
+    containerNav.append(load);
 
-imgBack.addEventListener('click', () => {
+    container.append(containerNav);
 
-    let sala = document.getElementById('codigo-sala');
-    sala && sala.remove();
+    imgBack.addEventListener('click', () => {
 
-    container.innerText = '';
-    container.remove();
+        let sala = document.getElementById('codigo-sala');
+        sala && sala.remove();
 
-    body.append(inicio);
+        container.innerHTML = '';
+        container.remove();
 
-    socket.emit('salir-sala', {codigo});
-});
+        body.append(inicio);
 
-// variable para hacer el reload
-let reload = {array: null, numCartas: null};
+        socket.emit('salir-sala', {codigo});
+    });
 
-imgLoad.addEventListener('click', () => {
-
-    container.innerText = '';
-
-    SeleccionarCartasRandom(reload.array, reload.numCartas);
-});
+    imgLoad.addEventListener('click', () => {
+        
+        container.innerText = '';
+        
+        SeleccionarCartasRandom(reload.array, reload.numCartas);
+    });
+}
 
 let arrayImagesFacil = ['./images/image-css.png', './images/image-css.png', './images/image-html.png', './images/image-html.png', './images/image-javascript.png', './images/image-javascript.png', './images/image-postgresql.png', './images/image-postgresql.png', './images/image-react.png', './images/image-react.png', './images/image-redux.jpg', './images/image-redux.jpg', './images/image-angular.png', './images/image-angular.png', './images/image-mongodb.png', './images/image-mongodb.png',];
 let arrayImagesNormal = ['./images/image-css.png', './images/image-css.png', './images/image-html.png', './images/image-html.png', './images/image-javascript.png', './images/image-javascript.png', './images/image-postgresql.png', './images/image-postgresql.png', './images/image-react.png', './images/image-react.png', './images/image-redux.jpg', './images/image-redux.jpg', './images/image-angular.png', './images/image-angular.png', './images/image-mongodb.png', './images/image-mongodb.png', './images/image-java.jpg', './images/image-java.jpg', './images/image-php.png', './images/image-php.png', './images/image-python.png', './images/image-python.png', './images/image-visualStudioCode.png', './images/image-visualStudioCode.png',];
 
 const SeleccionarCartasRandom = (array, numCartas) => {
 
+    let container = document.getElementById('container');
+    if(!container){
+        container = document.createElement('div');
+        container.id = 'container';
+    }
+
+    if(numCartas === 8 || screen.width < 700){
+        container.style.gridTemplateColumns = 'repeat(4, 1fr)';
+    }
+    else {
+        container.style.gridTemplateColumns = 'repeat(6, 1fr)';
+    }
+
     let arrayImages = [...array];
 
-    container.append(containerBtn);
+    crearNav();
     
     let lengthArray = arrayImages.length;
     
@@ -100,8 +113,7 @@ const SeleccionarCartasRandom = (array, numCartas) => {
     
         max--;
     };
-    
-    
+
     let cartasVolteadas = [];
     
     let movimientos = 0;

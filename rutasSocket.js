@@ -22,4 +22,13 @@ router.post('/empezar', (req, res) => {
     res.send({status: true});
 });
 
+router.post('/unir-sala', (req, res) => {
+
+    const {nombre, sala, socketId} = req.query;
+
+    socket.io.to(sala).emit('uniendo-jugador', {nombre, socketId});
+
+    res.send({status: true});
+});
+
 module.exports = router;

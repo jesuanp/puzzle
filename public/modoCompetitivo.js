@@ -1,37 +1,74 @@
-const urlServer = "https://puzzle-jesuanp.herokuapp.com";
-// const urlServer = "http://localhost:3001";
+// const urlServer = "https://puzzle-jesuanp.herokuapp.com";
+const urlServer = "http://localhost:3001";
 
 var socket = io.connect(urlServer, { forceNew: true });
 
 let body = document.body;
 
+let codigo = Math.ceil(Math.random() * (9999 - 1000) + 1000);
+let sala = document.createElement('div');
+sala.innerText = 'Sala: ' + codigo;
+sala.id = 'codigo-sala';
+
+
 socket.on('ganador', data => {
 
+    let cuerpoVentana = document.createElement('div');
+    cuerpoVentana.className = 'cuerpo-ventana';
+
+    let span = document.createElement('span');
+    
+    if(data.socketId === socket.id){
+        span.innerText = `Ganaste la partida con ${data.movimientos} movimientos`;
+    }
+    else {
+        span.innerText = `${data.nombreGanador} ganó la partida con ${data.movimientos}`;
+    }
+
+    cuerpoVentana.append(span);
+    cuerpoVentana.style.color = '#fff';
     
     let ventanaEmergente = document.createElement('div');
     ventanaEmergente.className = 'ventana-emergente';
-    
-    let cuerpoVentana = document.createElement('div');
-    cuerpoVentana.className = 'cuerpo-ventana';
-    
-    if(data.socketId === socket.id){
-        cuerpoVentana.innerText = `Ganaste la partida con ${data.movimientos} movimientos`;
-    }
-    else {
-        cuerpoVentana.innerText = `${data.nombreGanador} ganó la partida con ${data.movimientos}`;
-    }
-
-    cuerpoVentana.style.color = '#fff';
-
     ventanaEmergente.append(cuerpoVentana)
 
     body.append(ventanaEmergente);
+
+    let containerNav = document.getElementById('container-nav');
+    containerNav.addEventListener('click', () => {
+        ventanaEmergente.remove();
+    });
 });
+
+socket.on('uniendo-jugador', data => {
+    
+    let span = document.createElement('span');
+
+    if(data.socketId === socket.id){
+        span.innerText = 'Te uniste a la partida';
+    }
+    else {
+        span.innerText = `se unió ${data.nombre}`;
+    }
+
+    let cuerpoVentana = document.getElementsByClassName('cuerpo-ventana')[0];
+    cuerpoVentana.style.flexDirection = 'column';
+    cuerpoVentana.style.color = '#fff';
+    cuerpoVentana.append(span);
+})
 
 socket.on('empezar', data => {
 
+    let container = document.getElementById('container');
+    if(!container){
+        container = document.createElement('div');
+        container.id = 'container';
+    }
+
+    container.innerHTML = '';
+    
     body.append(container);
-            
+    
     if(data.reload.numCartas === 12 && screen.width > 700){
         container.style.gridTemplateColumns = 'repeat(6, 1fr)';
     }
@@ -39,41 +76,75 @@ socket.on('empezar', data => {
         container.style.gridTemplateColumns = 'repeat(4, 1fr)';
     }
     
+    
     ponerTablero();
     SeleccionarCartasRandom(data.reload.array, data.reload.numCartas);
+
+    let load = document.getElementById('load');
+    load.innerHTML = '';
+
+    if(data.socketId === socket.id){
+
+        let imgLoad = document.getElementById('load-sala');
+        if(!imgLoad){
+
+            // creando el load de la sala
+            let imgLoad = document.createElement('img');
+            imgLoad.src = './images/arrow-load.svg';
+            imgLoad.classList = 'svg load';
+            imgLoad.id = 'load-sala';
+            imgLoad.style.transform = 'scale(2.5)';
+    
+            imgLoad.addEventListener('click', () => {
+
+                fetch(`${urlServer}/empezar?sala=${codigo}`, {
+                    method: 'POST',
+                    body: JSON.stringify({reload, socketId: socket.id}),
+                    headers:{
+                        'Content-Type': 'application/json'
+                    }
+                });
+            })
+    
+            load.append(imgLoad);
+        }
+    }
 });
 
-
-let codigo = Math.ceil(Math.random() * (9999 - 1000) + 1000);
-let sala = document.createElement('div');
-sala.innerText = 'Sala: ' + codigo;
-sala.id = 'codigo-sala';
 
 const ponerTablero = () => {
     
     inicio.remove();
-    body.append(container);
     body.append(sala);
 
-    let cuerpoVentana = document.getElementsByClassName('cuerpo-ventana');
-    cuerpoVentana[0].innerHTML = '';
+    let cuerpoVentana = document.createElement('div');
+    cuerpoVentana.className = 'cuerpo-ventana';
     
     let ventanaEmergente = document.getElementsByClassName('ventana-emergente');
-    ventanaEmergente[0].innerHTML = '';
+    ventanaEmergente = ventanaEmergente[0];
 
-    let segundos = document.createElement('div');
-    segundos.id = 'segundos';
+    if(!ventanaEmergente){
+        ventanaEmergente = document.createElement('div');
+        ventanaEmergente.className = 'ventana-emergente';
+    } 
 
-    ventanaEmergente[0].append(segundos);
+    ventanaEmergente.innerHTML = '';
 
     let cont = 3;
 
+    let segundos = document.createElement('div');
+    segundos.id = 'segundos';
     segundos.innerText = cont;
 
+    ventanaEmergente.append(segundos);
+
+    body.append(ventanaEmergente);
+
     let cuentaRegresiva = setInterval(() => {
+        
         if(cont === 1){
             clearInterval(cuentaRegresiva);
-            ventanaEmergente[0].remove();
+            ventanaEmergente.remove();
         }
         else {
             cont--;
@@ -83,6 +154,10 @@ const ponerTablero = () => {
 }
 
 const crearVentanaEmergente = () => {
+
+    let btnClouse = document.createElement('button');
+    btnClouse.id = 'btn-clouse';
+    btnClouse.innerText = 'X';
 
     let btnVentanaCrear = document.createElement('button');
     btnVentanaCrear.className = 'btn-ventana';
@@ -94,11 +169,15 @@ const crearVentanaEmergente = () => {
     
     let cuerpoVentana = document.createElement('div');
     cuerpoVentana.className = 'cuerpo-ventana';
-    cuerpoVentana.append(btnVentanaCrear, btnVentanaUnirse);
+    cuerpoVentana.append(btnVentanaCrear, btnVentanaUnirse, btnClouse);
     
     let ventanaEmergente = document.createElement('div');
     ventanaEmergente.className = 'ventana-emergente';
     ventanaEmergente.append(cuerpoVentana)
+
+    btnClouse.addEventListener('click', () => {
+        ventanaEmergente.remove();
+    })
     
     body.append(ventanaEmergente);
 
@@ -121,11 +200,17 @@ const crearVentanaEmergente = () => {
         cuerpoVentana = cuerpoVentana[0];
     
         cuerpoVentana.innerText = '';
-        cuerpoVentana.append(btnNivelFacil, btnNivelIntermedio);
+        cuerpoVentana.append(btnNivelFacil, btnNivelIntermedio, btnClouse);
     
         let btnEmpezar = document.createElement('button');
         btnEmpezar.className = 'btn';
         btnEmpezar.innerText = 'Empezar';
+
+        let container = document.getElementById('container');
+        if(!container){
+            container = document.createElement('div');
+            container.id = 'container';
+        }
 
         btnNivelFacil.addEventListener('click', () => {
 
@@ -196,8 +281,10 @@ const ponerCodigo = () => {
     let cuerpoVentana = document.getElementsByClassName('cuerpo-ventana');
     cuerpoVentana = cuerpoVentana[0];
 
+    let btnClouse = document.getElementById('btn-clouse');
+
     cuerpoVentana.innerText = '';
-    cuerpoVentana.append(inputVentana, btnEnviarVentana);
+    cuerpoVentana.append(inputVentana, btnEnviarVentana, btnClouse);
 
     btnEnviarVentana.addEventListener('click', () => {
 
@@ -206,8 +293,12 @@ const ponerCodigo = () => {
 
         codigo = inputVentana.value;
 
+        fetch(`${urlServer}/unir-sala?sala=${codigo}&nombre=${nombreUsuario}&socketId=${socket.id}`, {
+            method: 'POST',
+        });
+
+        cuerpoVentana.style.color = '#fff';
         cuerpoVentana.innerText = 'Esperando al otro jugador...';
-        cuerpoVentana.style.color = '#fff'
 
     });
 }

@@ -1,4 +1,10 @@
 let nombreUsuario;
+let modoDeJuego;
+
+let loadSala = false;
+
+// variable para hacer el reload
+let reload = {array: null, numCartas: null};
 
 let h1 = document.createElement('h1');
 h1.innerText = 'Juego de memoria';
