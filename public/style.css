@@ -152,6 +152,7 @@ h1 {
     width: 20rem;
     border-radius: 0.5rem;
     position: relative;
+    margin: auto 1rem;
 }
 
 #btn-clouse {
