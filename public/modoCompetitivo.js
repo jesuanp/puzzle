@@ -187,6 +187,8 @@ const crearVentanaEmergente = () => {
     })
     
     btnVentanaCrear.addEventListener('click', () => {
+
+        sala.innerText = 'Sala: ' + codigo;
     
         let btnNivelFacil = document.createElement('button')
         btnNivelFacil.className = 'btn';
