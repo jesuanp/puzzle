@@ -10,8 +10,9 @@ let sala = document.createElement('div');
 sala.innerText = 'Sala: ' + codigo;
 sala.id = 'codigo-sala';
 
-
 socket.on('ganador', data => {
+
+    console.log('ganador');
 
     let cuerpoVentana = document.createElement('div');
     cuerpoVentana.className = 'cuerpo-ventana';
@@ -227,6 +228,10 @@ const crearVentanaEmergente = () => {
             container.id = 'container';
         }
 
+        codigo = Math.ceil(Math.random() * (9999 - 1000) + 1000);
+        sala.innerText = 'Sala: ' + codigo;
+        sala.id = 'codigo-sala';
+
         btnNivelFacil.addEventListener('click', () => {
 
             reload = {array: arrayImagesFacil, numCartas: 8};
@@ -306,9 +311,9 @@ const ponerCodigo = () => {
         sala.innerText = 'Sala: ' + inputVentana.value;
         socket.emit('unir-sala', {id: socket.id, codigo: inputVentana.value});
 
-        let codigoSala = inputVentana.value;
+        codigo = inputVentana.value;
 
-        fetch(`${urlServer}/unir-sala?sala=${codigoSala}&nombre=${nombreUsuario}&socketId=${socket.id}`, {
+        fetch(`${urlServer}/unir-sala?sala=${codigo}&nombre=${nombreUsuario}&socketId=${socket.id}`, {
             method: 'POST',
         });
 
