@@ -53,6 +53,14 @@ h1 {
     background-color: rgb(67, 46, 128);
 }
 
+#btn-empezar {
+    width: 6rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+}
+
 #container {
     display: grid;
     justify-content: center;

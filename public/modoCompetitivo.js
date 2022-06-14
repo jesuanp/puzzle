@@ -44,11 +44,21 @@ socket.on('uniendo-jugador', data => {
     
     let span = document.createElement('span');
 
+    let btnEmpezar = document.getElementById('btn-empezar');
+
     if(data.socketId === socket.id){
         span.innerText = 'Te uniste a la partida';
     }
     else {
         span.innerText = `se unió ${data.nombre}`;
+
+        if(btnEmpezar){
+
+            btnEmpezar.disabled = false;
+            btnEmpezar.style.cursor = 'pointer';
+            btnEmpezar.style.backgroundColor = 'rgb(90, 62, 175)';
+            btnEmpezar.className = 'btn';
+        }
     }
 
     let cuerpoVentana = document.getElementsByClassName('cuerpo-ventana')[0];
@@ -205,8 +215,11 @@ const crearVentanaEmergente = () => {
         cuerpoVentana.append(btnNivelFacil, btnNivelIntermedio, btnClouse);
     
         let btnEmpezar = document.createElement('button');
-        btnEmpezar.className = 'btn';
+        btnEmpezar.id = 'btn-empezar';
         btnEmpezar.innerText = 'Empezar';
+        btnEmpezar.disabled = true;
+        btnEmpezar.style.cursor = 'default';
+        btnEmpezar.style.backgroundColor = 'grey';
 
         let container = document.getElementById('container');
         if(!container){
