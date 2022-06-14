@@ -291,9 +291,9 @@ const ponerCodigo = () => {
         sala.innerText = 'Sala: ' + inputVentana.value;
         socket.emit('unir-sala', {id: socket.id, codigo: inputVentana.value});
 
-        codigo = inputVentana.value;
+        let codigoSala = inputVentana.value;
 
-        fetch(`${urlServer}/unir-sala?sala=${codigo}&nombre=${nombreUsuario}&socketId=${socket.id}`, {
+        fetch(`${urlServer}/unir-sala?sala=${codigoSala}&nombre=${nombreUsuario}&socketId=${socket.id}`, {
             method: 'POST',
         });
 
