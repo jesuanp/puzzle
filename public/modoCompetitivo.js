@@ -22,7 +22,7 @@ socket.on('ganador', data => {
         span.innerText = `Ganaste la partida con ${data.movimientos} movimientos`;
     }
     else {
-        span.innerText = `${data.nombreGanador} ganó la partida con ${data.movimientos}`;
+        span.innerText = `${data.nombreGanador} ganó la partida con ${data.movimientos} movimientos`;
     }
 
     cuerpoVentana.append(span);
