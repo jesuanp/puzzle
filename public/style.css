@@ -153,6 +153,7 @@ h1 {
     border-radius: 0.5rem;
     position: relative;
     margin: auto 1rem;
+    text-align: center;
 }
 
 #btn-clouse {
