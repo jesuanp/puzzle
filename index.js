@@ -6,7 +6,7 @@ connect(server);
 
 socket.io.on('connection', socket => {
 
-    console.log('Nueva canección');
+    console.log('Nueva conección');
 
     socket.on('unir-sala', data => {
 

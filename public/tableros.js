@@ -89,7 +89,7 @@ const SeleccionarCartasRandom = (array, numCartas) => {
         let numberRandom = Math.ceil(Math.random() * (max - min) + min);
     
         let imageArray = arrayImages.splice(numberRandom, 1);
-        image = imageArray[0];
+        let image = imageArray[0];
     
         let divImage = document.createElement('div');
         let img = document.createElement('img');

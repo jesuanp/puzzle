@@ -1,4 +1,4 @@
-let nombreUsuario;
+let nombreUsuario = `usuario ${Math.ceil(Math.random() * (9999 - 1000) + 1000)}`;
 let modoDeJuego;
 
 let loadSala = false;
@@ -25,7 +25,7 @@ btnNivelIntermedio.innerText = 'Intermedio';
 let btnCompetitivo = document.createElement('button');
 btnCompetitivo.className = 'btn';
 btnCompetitivo.id = 'competitivo';
-btnCompetitivo.innerText = '1 vs 1';
+btnCompetitivo.innerText = 'Competitivo';
 
 let divBotones = document.createElement('div');
 divBotones.className = 'buttons';
@@ -37,10 +37,10 @@ let btnForm = document.getElementById('btn-form');
 let inputNombre = document.getElementById('input-nombre');
 
 btnForm.addEventListener('click', () => {
-
-    if(inputNombre.value.trim() !== ''){
-
-        nombreUsuario = inputNombre.value.trim();
+        
+        let nombreSpan = document.createElement('span');
+        let containerName = document.createElement('div');
+        createContainerName(nombreSpan, containerName);
 
         divInicio.innerHTML = '';
     
@@ -49,13 +49,48 @@ btnForm.addEventListener('click', () => {
         
         divInicio.className = 'inicio';
         divInicio.id = 'inicio';
-        divInicio.append(h1, h2, divBotones);
+        divInicio.append(h1, h2, divBotones, containerName);
 
         seleccionarDificultad();
-    }
-    else {
-        alert('Tienes que escribir tu nombre')
-    }
+});
 
+// Creo el container donde va en nombre
+const createContainerName = (nombreSpan, containerName) => {
+
+    nombreSpan.innerText = nombreUsuario;
+    nombreSpan.id = 'nombre';
+
+    let nameDiv = document.createElement('div');
+    nameDiv.innerHTML = '';
+    nameDiv.id = 'nameDiv';
+    nameDiv.append(nombreSpan);
+
+    let spanPreviewsName = document.createElement('span');
+    spanPreviewsName.innerText = 'Usuario:'
+
+    containerName.id = 'containerName';
+    containerName.append(nameDiv)
     
-})
+    // Hago un metodo para que al darle click al nombre, se pueda cambiar
+    nombreSpan.addEventListener('click', () => {
+
+        let inputName = document.createElement('input');
+        inputName.id = 'inputName'
+        inputName.type = 'text';
+
+        let btnName = document.createElement('button');
+        btnName.className = 'btn-enviar-ventana';
+        btnName.innerText = 'Aceptar';
+
+        nameDiv.innerHTML = '';
+        nameDiv.append(inputName, btnName);
+
+        btnName.addEventListener('click', () => {
+            nombreUsuario = inputName.value;
+            nombreSpan.innerText = inputName.value;
+
+            nameDiv.innerHTML = '';
+            nameDiv.append(nombreSpan);
+        })
+    })
+}

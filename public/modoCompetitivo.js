@@ -1,5 +1,5 @@
-const urlServer = "https://puzzle-jesuanp.herokuapp.com";
-// const urlServer = "http://localhost:3001";
+// const urlServer = "https://puzzle-jesuanp.herokuapp.com";
+const urlServer = "http://localhost:3001";
 
 var socket = io.connect(urlServer, { forceNew: true });
 
@@ -11,8 +11,6 @@ sala.innerText = 'Sala: ' + codigo;
 sala.id = 'codigo-sala';
 
 socket.on('ganador', data => {
-
-    console.log('ganador');
 
     let cuerpoVentana = document.createElement('div');
     cuerpoVentana.className = 'cuerpo-ventana';
@@ -48,6 +46,7 @@ socket.on('uniendo-jugador', data => {
     let btnEmpezar = document.getElementById('btn-empezar');
 
     if(data.socketId === socket.id){
+        var canselar = true;
         span.innerText = 'Te uniste a la partida';
     }
     else {
@@ -62,10 +61,22 @@ socket.on('uniendo-jugador', data => {
         }
     }
 
+    let btnExit = document.createElement('button');
+    btnExit.innerText = 'Salir';
+    btnExit.id = 'btnExit';
+
+    btnExit.addEventListener('click', () => {
+
+        socket.emit('salir-sala', {codigo});
+        
+        let ventanaEmergente = document.getElementsByClassName('ventana-emergente')[0];
+        ventanaEmergente.remove();
+    })
+
     let cuerpoVentana = document.getElementsByClassName('cuerpo-ventana')[0];
     cuerpoVentana.style.flexDirection = 'column';
     cuerpoVentana.style.color = '#fff';
-    cuerpoVentana.append(span);
+    cuerpoVentana.append(span, canselar && btnExit);
 })
 
 socket.on('empezar', data => {
@@ -291,7 +302,7 @@ const ponerCodigo = () => {
 
     let inputVentana = document.createElement('input');
     inputVentana.className = 'input-ventana';
-    inputVentana.placeholder = 'Escribe el código aquí...';
+    inputVentana.placeholder = 'Código de la sala...';
     inputVentana.type = 'text';
 
     let btnEnviarVentana = document.createElement('button');
@@ -325,8 +336,35 @@ const ponerCodigo = () => {
 
 function playerWin(sala, nombreUsuario, socketId, movimientos){
 
-    fetch(`${urlServer}/ganador?sala=${sala}&nombreGanador=${nombreUsuario}&socketId=${socketId}&movimientos=${movimientos}`, {
-        method: 'POST',
-    });
+    if(modoDeJuego === 'Competitivo'){
+
+        fetch(`${urlServer}/ganador?sala=${sala}&nombreGanador=${nombreUsuario}&socketId=${socketId}&movimientos=${movimientos}`, {
+            method: 'POST',
+        });
+    }
+    else {
+        let cuerpoVentana = document.createElement('div');
+        cuerpoVentana.className = 'cuerpo-ventana';
+
+        let span = document.createElement('span');
+        
+        span.innerText = `Terminaste con ${movimientos} movimientos`;
+        
+
+        cuerpoVentana.append(span);
+        cuerpoVentana.style.color = '#fff';
+        
+        let ventanaEmergente = document.createElement('div');
+        ventanaEmergente.className = 'ventana-emergente';
+        ventanaEmergente.append(cuerpoVentana)
+
+        body.append(ventanaEmergente);
+
+        let containerNav = document.getElementById('container-nav');
+        containerNav.addEventListener('click', () => {
+            ventanaEmergente.remove();
+        });
+    }
+
 }
 

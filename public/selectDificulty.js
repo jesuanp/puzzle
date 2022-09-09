@@ -23,8 +23,6 @@ const seleccionarDificultad = () => {
 
                 reload = {array: arrayImagesFacil, numCartas: 8};
 
-                // container.style.gridTemplateColumns = 'repeat(4, 1fr)';
-
                 setTimeout(() => {
                     body.append(container);
                     SeleccionarCartasRandom(arrayImagesFacil, 8);
@@ -46,9 +44,9 @@ const seleccionarDificultad = () => {
                     SeleccionarCartasRandom(arrayImagesNormal, 12);
                 }, 100)
             }
-            else if(dificultad === '1 vs 1') {
+            else if(dificultad === 'Competitivo') {
 
-                modoDeJuego = '1vs1';
+                modoDeJuego = 'Competitivo';
 
                 crearVentanaEmergente();
             }

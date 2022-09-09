@@ -5,6 +5,11 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
+    background-color: #494949;
+}
+
+li {
+    margin: 0.5rem 0rem;
 }
 
 h1 {
@@ -19,16 +24,16 @@ h1 {
     flex-direction: column;
     background-color: rgb(36, 36, 36);
     border-radius: 0.5rem;
-    padding: 2rem 2rem 3.5rem 2rem;
+    padding: 1rem;
     color: white;
-    height: 6rem;
-    /* height: 18rem; */
-    margin-top: 5rem;
+    height: 16rem;
+    margin: 5rem 2rem 0rem 2rem;
     box-shadow: 15px 15px 15px black;
 }
 
 #titulo-inicio {
     width: 18rem;
+    text-align: center;
 }
 
 .buttons {
@@ -61,6 +66,43 @@ h1 {
     color: white;
 }
 
+#nameDiv {
+    display: flex;
+}
+
+#nombre {
+    background-color: rgb(36, 36, 36);
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+#inputName {
+    width: 8rem;
+    border-radius: 0.3rem;
+    border: 2px solid black;
+    outline: none;
+    height: 1.4rem;
+}
+
+#btnExit {
+    background-color: rgb(194, 3, 3);
+    border: none;
+    border-radius: 0.3rem;
+    padding: 0.4rem 1rem;
+}
+
+#containerName {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
 #container {
     display: grid;
     justify-content: center;
@@ -75,9 +117,9 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: #fff;
     overflow: hidden;
-    height: 8rem;
+    height: 7.6rem;
     width: 7rem;
 }
 
@@ -99,6 +141,7 @@ h1 {
     z-index: 1;
     cursor: pointer;
     -webkit-backface-visibility: hidden;
+    height: 8rem;
 }
 
 /* #btn-back {
@@ -138,7 +181,7 @@ h1 {
 
 /* ventana emergente */
 .ventana-emergente {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -205,12 +248,15 @@ h1 {
 .btn-enviar-ventana {
     width: 4rem;
     height: 2rem;
+    padding: 1rem 0rem;
     border: none;
     background-color: rgb(90, 62, 175);
-    /* background-color: rgb(90, 62, 175); */
     border-radius: 0.5rem;
     color: white;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .btn-enviar-ventana:hover {
     background-color: rgb(67, 46, 128);
