@@ -1,5 +1,5 @@
-// const urlServer = "https://puzzle-jesuanp.herokuapp.com";
-const urlServer = "http://localhost:3001";
+const urlServer = "https://puzzle-jesuanp.herokuapp.com";
+// const urlServer = "http://localhost:3001";
 
 var socket = io.connect(urlServer, { forceNew: true });
 
