@@ -60,6 +60,7 @@ h1 {
 
 #btn-empezar {
     width: 6rem;
+    padding: 0.5rem;
     height: 2rem;
     border: none;
     border-radius: 0.5rem;
@@ -68,6 +69,8 @@ h1 {
 
 #nameDiv {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #nombre {
@@ -91,6 +94,7 @@ h1 {
     border: none;
     border-radius: 0.3rem;
     padding: 0.4rem 1rem;
+    cursor: pointer;
 }
 
 #containerName {
@@ -197,6 +201,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: auto;
     gap: 1rem;
     background-color: black;
     padding: 2rem;
@@ -275,6 +280,10 @@ h1 {
     color: #fff;
 }
 
+#ul-inicio {
+    margin-top: 0;
+}
+
 
 
 @media (max-width: 770px) {
@@ -286,6 +295,10 @@ h1 {
     .letter {
         width: 6rem;
         height: 6rem;
+    }
+
+    .interrogacion {
+        height: 7rem;
     }
 }
 
@@ -300,4 +313,11 @@ h1 {
         height: 5rem;
     }
 
+    .interrogacion {
+        height: 7rem;
+    }
+
+    .inicio {
+        height: 20rem;
+    }
 }

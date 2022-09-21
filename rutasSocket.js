@@ -9,7 +9,7 @@ router.post('/ganador', (req, res) => {
 
     socket.io.to(sala).emit('ganador', {nombreGanador, socketId, movimientos});
 
-    res.send({status: true});
+    res.send({status: 200});
 });
 
 router.post('/empezar', (req, res) => {
@@ -19,7 +19,7 @@ router.post('/empezar', (req, res) => {
 
     socket.io.to(sala).emit('empezar', {socketId, reload, tiempo: 5});
 
-    res.send({status: true});
+    res.send({status: 200});
 });
 
 router.post('/unir-sala', (req, res) => {
@@ -28,7 +28,16 @@ router.post('/unir-sala', (req, res) => {
 
     socket.io.to(sala).emit('uniendo-jugador', {nombre, socketId});
 
-    res.send({status: true});
+    res.send({status: 200});
+});
+
+router.post('/hello', (req, res) => {
+
+    const {nombre, sala} = req.query;
+
+    socket.io.to(sala).emit('salida-exitosa', {nombre});
+
+    res.send({status: 200});
 });
 
 module.exports = router;

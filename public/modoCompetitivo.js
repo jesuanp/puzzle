@@ -1,5 +1,5 @@
-const urlServer = "https://puzzle-jesuanp.herokuapp.com";
-// const urlServer = "http://localhost:3001";
+// const urlServer = "https://puzzle-jesuanp.herokuapp.com";
+const urlServer = "http://localhost:3001";
 
 var socket = io.connect(urlServer, { forceNew: true });
 
@@ -46,11 +46,11 @@ socket.on('uniendo-jugador', data => {
     let btnEmpezar = document.getElementById('btn-empezar');
 
     if(data.socketId === socket.id){
-        var canselar = true;
+        var cancelar = true;
         span.innerText = 'Te uniste a la partida';
     }
     else {
-        span.innerText = `se unió ${data.nombre}`;
+        span.innerText = `${data.nombre} se unió`;
 
         if(btnEmpezar){
 
@@ -67,7 +67,11 @@ socket.on('uniendo-jugador', data => {
 
     btnExit.addEventListener('click', () => {
 
-        socket.emit('salir-sala', {codigo});
+        fetch(`${urlServer}/hello?sala=${codigo}&nombre=${nombreUsuario}`, {
+            method: 'POST',
+        });
+
+        socket.emit('salir-sala', {codigo, nombreUsuario});
         
         let ventanaEmergente = document.getElementsByClassName('ventana-emergente')[0];
         ventanaEmergente.remove();
@@ -76,7 +80,11 @@ socket.on('uniendo-jugador', data => {
     let cuerpoVentana = document.getElementsByClassName('cuerpo-ventana')[0];
     cuerpoVentana.style.flexDirection = 'column';
     cuerpoVentana.style.color = '#fff';
-    cuerpoVentana.append(span, canselar && btnExit);
+    cuerpoVentana.style.height = '10rem'
+    cuerpoVentana.style.justifyContent = 'flex-start'
+
+    cancelar ? cuerpoVentana.append(span, btnExit) : cuerpoVentana.append(span)
+
 })
 
 socket.on('empezar', data => {
@@ -132,6 +140,16 @@ socket.on('empezar', data => {
         }
     }
 });
+
+socket.on('salida-exitosa', data => {
+
+    let cuerpoVentana = document.getElementsByClassName('cuerpo-ventana')[0];
+
+    let span = document.createElement('span');
+    span.innerText = `${data.nombre} salió de la sala`;
+
+    cuerpoVentana.append(span);
+})
 
 
 const ponerTablero = () => {
@@ -304,6 +322,7 @@ const ponerCodigo = () => {
     inputVentana.className = 'input-ventana';
     inputVentana.placeholder = 'Código de la sala...';
     inputVentana.type = 'text';
+    inputVentana.autofocus = true;
 
     let btnEnviarVentana = document.createElement('button');
     btnEnviarVentana.className = 'btn-enviar-ventana';
